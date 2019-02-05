@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private ImageButton btn_play_pause;
     private SeekBar seekBar;
-    TextView txtForward;
-    TextView txtRewind;
+    TextView txtFinalTime;
+    TextView txtInicialTime;
     private double startTime = 0;
     private double finalTime = 0;
     private static int oneTimeOnly = 0;
@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         mp = MediaPlayer.create(this, R.raw.all_about_you);
         btn_play_pause = findViewById(R.id.btn_play_pause);
         seekBar = findViewById(R.id.seek_bar);
-        txtForward = findViewById(R.id.txt_forward);
-        txtRewind = findViewById(R.id.txt_rewind);
+        txtFinalTime = findViewById(R.id.txt_final_time);
+        txtInicialTime = findViewById(R.id.txt_inicial_time);
 
         btn_play_pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,12 +48,28 @@ public class MainActivity extends AppCompatActivity {
                     startTime = mp.getCurrentPosition();
                     finalTime = mp.getDuration();
 
-                    long minutos = TimeUnit.MILLISECONDS.toMinutes((long) finalTime);
-                    long segundos = TimeUnit.MILLISECONDS.toSeconds((long) finalTime);
-                    long mintoSeg = TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime));
-                    String result = String.format(Locale.getDefault(), "%d:%d", minutos, segundos - mintoSeg);
+                    //Pegando minutos Total, segundos Total e transformando minutos em segundos
+                    long minutosFinal = TimeUnit.MILLISECONDS.toMinutes((long) finalTime);
+                    long segundosFinal = TimeUnit.MILLISECONDS.toSeconds((long) finalTime);
+                    long mintoSegFinal = TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime));
 
-                    txtForward.setText(String.format(Locale.getDefault(), "%d:%d", minutos, segundos - mintoSeg));
+                    //Formatando tempo
+                    String tempoFinal = String.format(Locale.getDefault(), "%d:%d", minutosFinal, segundosFinal - mintoSegFinal);
+
+                    //Setando tempo final da musica
+                    txtFinalTime.setText(tempoFinal);
+
+
+                    //Pegando minutos Total, segundos Total e transformando minutos em segundos
+                    long minutosInicial = TimeUnit.MILLISECONDS.toMinutes((long) startTime);
+                    long segundosInicial = TimeUnit.MILLISECONDS.toSeconds((long) startTime);
+                    long mintoSegInicial = TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime));
+
+                    //Formatando tempo
+                    String tempoInicial = String.format(Locale.getDefault(), "%d:%d", minutosInicial, segundosInicial - mintoSegInicial);
+
+                    //Setando tempo inicial da musica
+                    txtInicialTime.setText(tempoInicial);
 
 
 
