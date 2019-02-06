@@ -6,42 +6,75 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/btn_forward"
+        android:id="@+id/btn_rewind"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:scaleType="centerInside"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@id/btn_play_pause"
         android:layout_margin="16dp"
-        android:src="@drawable/rewind"
+        android:layout_toStartOf="@id/btn_play_pause"
+        android:scaleType="centerInside"
+        android:src="@drawable/rewind" />
+
+    <TextView
+        android:id="@+id/txt_inicial_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="103dp"
+        android:textAppearance="?textAppearanceListItemSmall"
+        tools:text="0:00"
          />
 
+    <TextView
+        android:id="@+id/txt_song_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seek_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="Song.mp3"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#000" />
+
     <SeekBar
-        android:layout_width="150dp"
+        android:id="@+id/seek_bar"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_play_pause"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/txt_final_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="103dp"
+        android:textAppearance="?textAppearanceListItemSmall"
+        tools:text="4:33"
+        />
 
     <ImageButton
         android:id="@+id/btn_play_pause"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_margin="16dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/play"
-        />
-
-    <ImageButton
-        android:id="@+id/btn_rewind"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
         android:layout_margin="16dp"
         android:scaleType="centerInside"
+        android:src="@drawable/play" />
+
+    <ImageButton
+        android:id="@+id/btn_forward"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
         android:layout_toEndOf="@id/btn_play_pause"
-        android:src="@drawable/forward"
-         />
+        android:scaleType="centerInside"
+        android:src="@drawable/forward" />
 
 </RelativeLayout>
