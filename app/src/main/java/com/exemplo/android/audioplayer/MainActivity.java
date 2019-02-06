@@ -1,9 +1,9 @@
 package com.exemplo.android.audioplayer;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -16,8 +16,9 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private ImageButton btn_play_pause;
     private SeekBar seekBar;
-    TextView txtFinalTime;
-    TextView txtInicialTime;
+    private TextView txtFinalTime;
+    private TextView txtInicialTime;
+    private Handler myHandler = new Handler();
     private double startTime = 0;
     private double finalTime = 0;
     private static int oneTimeOnly = 0;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                     startTime = mp.getCurrentPosition();
                     finalTime = mp.getDuration();
 
+                    if (oneTimeOnly == 0) {
+                        seekBar.setMax((int) finalTime);
+                        oneTimeOnly = 1;
+                    }
+
                     //Pegando minutos Total, segundos Total e transformando minutos em segundos
                     long minutosFinal = TimeUnit.MILLISECONDS.toMinutes((long) finalTime);
                     long segundosFinal = TimeUnit.MILLISECONDS.toSeconds((long) finalTime);
@@ -71,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
                     //Setando tempo inicial da musica
                     txtInicialTime.setText(tempoInicial);
 
+                    int startTimeInt = (int) startTime;
 
+                    seekBar.setProgress((int) startTime);
+                    myHandler.postDelayed(UpdateSongTime, 100);
 
                 }
 
@@ -81,5 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    private Runnable UpdateSongTime = new Runnable() {
+        @Override
+        public void run() {
+            startTime = mp.getCurrentPosition();
+            txtInicialTime.setText(
+                String.format(
+                        Locale.getDefault(),
+                        "%d:%d",
+                        TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                        TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                        TimeUnit.MILLISECONDS.toSeconds(TimeUnit.MILLISECONDS.
+                        toMinutes((long) startTime )))
+                );
+            seekBar.setProgress((int) startTime);
+            myHandler.postDelayed(this, 100);
+        }
+    };
 }
