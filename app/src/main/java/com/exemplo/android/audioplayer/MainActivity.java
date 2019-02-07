@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -14,13 +15,17 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
-    private ImageButton btn_play_pause;
+    private ImageButton btnPlayPause;
+    private ImageButton btnForward;
+    private ImageButton btnBackWard;
     private SeekBar seekBar;
     private TextView txtFinalTime;
     private TextView txtInicialTime;
     private Handler myHandler = new Handler();
     private double startTime = 0;
     private double finalTime = 0;
+    private int forwardTime = 5000;
+    private int backwardTime = 5000;
     private static int oneTimeOnly = 0;
 
 
@@ -30,24 +35,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mp = MediaPlayer.create(this, R.raw.all_about_you);
-        btn_play_pause = findViewById(R.id.btn_play_pause);
+        btnPlayPause = findViewById(R.id.btn_play_pause);
+        btnForward = findViewById(R.id.btn_forward);
+        btnBackWard = findViewById(R.id.btn_backward);
         seekBar = findViewById(R.id.seek_bar);
         txtFinalTime = findViewById(R.id.txt_final_time);
         txtInicialTime = findViewById(R.id.txt_inicial_time);
 
-        btn_play_pause.setOnClickListener(new View.OnClickListener() {
+        btnPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (mp.isPlaying()) {
 
                     mp.pause();
-                    btn_play_pause.setImageResource(R.drawable.play);
+                    btnPlayPause.setImageResource(R.drawable.play);
 
                 } else {
 
                     mp.start();
-                    btn_play_pause.setImageResource(R.drawable.pause);
+                    btnPlayPause.setImageResource(R.drawable.pause);
 
                     startTime = mp.getCurrentPosition();
                     finalTime = mp.getDuration();
@@ -105,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
                     //Adicionando o zero a esquerda aos segundos
                     String segundos = "";
-                    if((segundosInicial - mintoSegInicial) < 10){
+                    if ((segundosInicial - mintoSegInicial) < 10) {
                         segundos = "0" + String.valueOf(segundosInicial - mintoSegInicial);
-                    }else{
+                    } else {
                         segundos = String.valueOf(segundosInicial - mintoSegInicial);
                     }
 
@@ -127,6 +134,20 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+
+        btnForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = (int) startTime;
+
+                if( (temp + forwardTime) <= finalTime){
+                    startTime += forwardTime;
+                    mp.seekTo((int) startTime);
+                }
+                Log.e("StartTime",temp + "");
             }
         });
 
@@ -154,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
 
             //Adicionando o zero a esquerda aos segundos
             String segundos = "";
-            if((segundosInicial - mintoSegInicial) < 10){
+            if ((segundosInicial - mintoSegInicial) < 10) {
                 segundos = "0" + String.valueOf(segundosInicial - mintoSegInicial);
-            }else{
+            } else {
                 segundos = String.valueOf(segundosInicial - mintoSegInicial);
             }
 
