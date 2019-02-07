@@ -6,14 +6,14 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/btn_rewind"
+        android:id="@+id/btn_backward"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:layout_toStartOf="@id/btn_play_pause"
         android:scaleType="centerInside"
-        android:src="@drawable/rewind" />
+        android:src="@drawable/backward" />
 
     <TextView
         android:id="@+id/txt_inicial_time"
