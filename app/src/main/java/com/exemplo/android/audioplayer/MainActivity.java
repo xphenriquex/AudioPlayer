@@ -40,39 +40,75 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (mp.isPlaying()) {
+
                     mp.pause();
                     btn_play_pause.setImageResource(R.drawable.play);
+
                 } else {
+
                     mp.start();
                     btn_play_pause.setImageResource(R.drawable.pause);
 
                     startTime = mp.getCurrentPosition();
                     finalTime = mp.getDuration();
 
+                    //Setando maximo do seekBar
                     if (oneTimeOnly == 0) {
                         seekBar.setMax((int) finalTime);
                         oneTimeOnly = 1;
                     }
 
-                    //Pegando minutos Total, segundos Total e transformando minutos em segundos
-                    long minutosFinal = TimeUnit.MILLISECONDS.toMinutes((long) finalTime);
-                    long segundosFinal = TimeUnit.MILLISECONDS.toSeconds((long) finalTime);
-                    long mintoSegFinal = TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime));
+                    //Pegando minutos Total, segundos Total e
+                    // transformando minutos em segundos
+
+                    long minutosFinal = TimeUnit.MILLISECONDS.
+                            toMinutes(
+                                    (long) finalTime
+                            );
+                    long segundosFinal = TimeUnit.MILLISECONDS.
+                            toSeconds(
+                                    (long) finalTime
+                            );
+                    long mintoSegFinal = TimeUnit.MINUTES.
+                            toSeconds(
+                                    TimeUnit.MILLISECONDS.
+                                            toMinutes((long) finalTime)
+                            );
 
                     //Formatando tempo
-                    String tempoFinal = String.format(Locale.getDefault(), "%d:%d", minutosFinal, segundosFinal - mintoSegFinal);
+                    String tempoFinal = String.format(
+                            Locale.getDefault(),
+                            "%d:%d",
+                            minutosFinal, segundosFinal - mintoSegFinal
+                    );
 
                     //Setando tempo final da musica
                     txtFinalTime.setText(tempoFinal);
 
 
-                    //Pegando minutos Total, segundos Total e transformando minutos em segundos
-                    long minutosInicial = TimeUnit.MILLISECONDS.toMinutes((long) startTime);
-                    long segundosInicial = TimeUnit.MILLISECONDS.toSeconds((long) startTime);
-                    long mintoSegInicial = TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime));
+                    //Pegando minutos Total, segundos Total e
+                    // transformando minutos em segundos
+                    long minutosInicial = TimeUnit.MILLISECONDS.
+                            toMinutes(
+                                    (long) startTime
+                            );
+                    long segundosInicial = TimeUnit.MILLISECONDS.
+                            toSeconds(
+                                    (long) startTime
+                            );
+                    long mintoSegInicial = TimeUnit.MINUTES.
+                            toSeconds(
+                                    TimeUnit.MILLISECONDS.
+                                            toMinutes((long) startTime)
+                            );
 
                     //Formatando tempo
-                    String tempoInicial = String.format(Locale.getDefault(), "%d:%d", minutosInicial, segundosInicial - mintoSegInicial);
+                    String tempoInicial = String.format(
+                            Locale.getDefault(),
+                            "%d:%d",
+                            minutosInicial,
+                            segundosInicial - mintoSegInicial
+                    );
 
                     //Setando tempo inicial da musica
                     txtInicialTime.setText(tempoInicial);
@@ -94,15 +130,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             startTime = mp.getCurrentPosition();
+
+            long minutosInicial = TimeUnit.MILLISECONDS.
+                    toMinutes(
+                            (long) startTime
+                    );
+            long segundosInicial = TimeUnit.MILLISECONDS.
+                    toSeconds(
+                            (long) startTime
+                    );
+            long mintoSegInicial = TimeUnit.MINUTES.
+                    toSeconds(
+                            TimeUnit.MILLISECONDS.
+                                    toMinutes((long) startTime)
+                    );
+
             txtInicialTime.setText(
-                String.format(
-                        Locale.getDefault(),
-                        "%d:%d",
-                        TimeUnit.MILLISECONDS.toMinutes((long) startTime),
-                        TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-                        TimeUnit.MILLISECONDS.toSeconds(TimeUnit.MILLISECONDS.
-                        toMinutes((long) startTime )))
-                );
+                    String.format(
+                            Locale.getDefault(),
+                            "%d:%d",
+                            minutosInicial,
+                            segundosInicial - mintoSegInicial
+                    )
+            );
             seekBar.setProgress((int) startTime);
             myHandler.postDelayed(this, 100);
         }
