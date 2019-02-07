@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         txtFinalTime = findViewById(R.id.txt_final_time);
         txtInicialTime = findViewById(R.id.txt_inicial_time);
 
+
         btnPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +163,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mp != null && fromUser){
+                    mp.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
 
     }
 
