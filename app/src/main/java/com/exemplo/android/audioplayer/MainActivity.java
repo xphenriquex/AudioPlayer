@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             toMinutes(
                                     (long) startTime
                             );
+
                     long segundosInicial = TimeUnit.MILLISECONDS.
                             toSeconds(
                                     (long) startTime
@@ -102,18 +103,24 @@ public class MainActivity extends AppCompatActivity {
                                             toMinutes((long) startTime)
                             );
 
-                    //Formatando tempo
+                    //Adicionando o zero a esquerda aos segundos
+                    String segundos = "";
+                    if((segundosInicial - mintoSegInicial) < 10){
+                        segundos = "0" + String.valueOf(segundosInicial - mintoSegInicial);
+                    }else{
+                        segundos = String.valueOf(segundosInicial - mintoSegInicial);
+                    }
+
+                    //Formatando tempo em m:ss
                     String tempoInicial = String.format(
                             Locale.getDefault(),
-                            "%d:%d",
+                            "%d:%s",
                             minutosInicial,
-                            segundosInicial - mintoSegInicial
+                            segundos
                     );
 
                     //Setando tempo inicial da musica
                     txtInicialTime.setText(tempoInicial);
-
-                    int startTimeInt = (int) startTime;
 
                     seekBar.setProgress((int) startTime);
                     myHandler.postDelayed(UpdateSongTime, 100);
@@ -145,12 +152,21 @@ public class MainActivity extends AppCompatActivity {
                                     toMinutes((long) startTime)
                     );
 
+            //Adicionando o zero a esquerda aos segundos
+            String segundos = "";
+            if((segundosInicial - mintoSegInicial) < 10){
+                segundos = "0" + String.valueOf(segundosInicial - mintoSegInicial);
+            }else{
+                segundos = String.valueOf(segundosInicial - mintoSegInicial);
+            }
+
+            //Formatando o tempo em m:ss
             txtInicialTime.setText(
                     String.format(
                             Locale.getDefault(),
-                            "%d:%d",
+                            "%d:%s",
                             minutosInicial,
-                            segundosInicial - mintoSegInicial
+                            segundos
                     )
             );
             seekBar.setProgress((int) startTime);
